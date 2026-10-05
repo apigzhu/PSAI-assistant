@@ -2,6 +2,9 @@
 
 **Personalized Intelligent Assistant System** —— 一个基于大语言模型的全栈 AI 学习助理，支持多轮对话、导师人设、学习路径规划、知识图谱、试题练习与错题集。
 
+- 🔗 **在线演示**（GitHub Pages）：<https://apigzhu.github.io/PSAI-assistant/>　演示模式，数据为模拟，无需登录即可体验
+- 📦 **源码仓库**：<https://github.com/apigzhu/PSAI-assistant>
+
 ## ✨ 核心功能
 
 - **多轮对话**：SSE 流式输出，滑动窗口工作记忆（默认 128K token 估算），长对话不丢上下文

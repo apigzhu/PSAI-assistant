@@ -10,6 +10,7 @@ import QuizPanel from '../components/QuizPanel'
 import WrongAnswersPage from '../pages/WrongAnswersPage'
 import { createSession, listSessions, getSessionMessages, sendMessageStream, getMemoryUsage, setSessionTutor, deleteSession } from '../api/client'
 import { useAuthStore } from '../stores/authStore'
+import { isDemo } from '../demo/demoApi'
 import type { Message, Session, MemoryUsage, Tutor, ViewType } from '../types'
 
 function ChatIcon() {
@@ -224,6 +225,14 @@ export default function ChatPage() {
       setMemoryUsage(null)
     }
   }
+
+  // 演示模式：自动打开最近的一个会话，让访客一进来就看到对话内容
+  useEffect(() => {
+    if (isDemo && sessions.length > 0 && !currentSessionId) {
+      handleSelectSession(sessions[0].id)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessions])
 
   const handleNewSession = () => {
     setCurrentSessionId(null)

@@ -6,9 +6,11 @@ import type {
   MilestoneContent, QuizResponse,
   WrongAnswer, AnswerRecord,
 } from '../types'
+import { isDemo, demoAdapter, demoMessageStream } from '../demo/demoApi'
 
 const api = axios.create({
   baseURL: '/api',
+  adapter: isDemo ? demoAdapter : undefined,
 })
 
 api.interceptors.request.use((config) => {
@@ -70,6 +72,11 @@ export async function* sendMessageStream(
   sessionId: string,
   content: string
 ): AsyncGenerator<SSEChunk> {
+  if (isDemo) {
+    yield* demoMessageStream(sessionId, content)
+    return
+  }
+
   const token = localStorage.getItem('pias_token')
 
   const resp = await fetch(`/api/chat/sessions/${sessionId}/messages`, {
